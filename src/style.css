@@ -800,21 +800,22 @@ nav a:hover::after {
 
 .journey-layout {
   display: flex;
-  gap: 5rem;
+  gap: 4rem;
   align-items: center;
   width: 100%;
+  justify-content: space-between;
 }
 
 .journey-visuals {
   flex: 1.2;
   position: relative;
-  height: 480px;
+  height: 460px;
   width: 100%;
-  max-width: 600px;
-  aspect-ratio: 16/10;
+  max-width: 580px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
 .collage-wrapper {
@@ -864,10 +865,10 @@ nav a:hover::after {
 }
 
 /* Float Variations */
-.float-top-left { top: 0%; left: -5%; animation-delay: 0.5s; }
-.float-top-right { top: -8%; right: -2%; animation-delay: 0s; }
-.float-bottom-left { bottom: -5%; left: 0%; animation-delay: 1s; }
-.float-bottom-right { bottom: 5%; right: -5%; animation-delay: 1.5s; }
+.float-top-left { top: 6%; left: 4%; animation-delay: 0.5s; }
+.float-top-right { top: 6%; right: 4%; animation-delay: 0s; }
+.float-bottom-left { bottom: 6%; left: 4%; animation-delay: 1s; }
+.float-bottom-right { bottom: 6%; right: 4%; animation-delay: 1.5s; }
 
 @keyframes floatBadge {
   0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -877,21 +878,21 @@ nav a:hover::after {
 /* Farmer Story Card */
 .farmer-story-card {
   position: absolute;
-  bottom: -2%;
-  left: -8%;
-  width: 250px;
+  bottom: 5%;
+  left: 4%;
+  width: 230px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  padding: 1.1rem;
+  padding: 1rem;
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   z-index: 4;
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  transform: rotate(-3deg);
+  transform: rotate(-2deg);
   transition: transform 0.3s ease;
 }
 
@@ -1087,6 +1088,8 @@ nav a:hover::after {
   flex: 0.8;
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+  max-width: 480px;
 }
 
 .organic-fact-box {
