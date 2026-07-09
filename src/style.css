@@ -1629,6 +1629,40 @@ nav a:hover::after {
   transform: scale(1.1);
 }
 
+/* Product Badges */
+.product-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 5;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  pointer-events: none;
+}
+
+.badge-bestseller {
+  background: var(--primary-green);
+  color: var(--milk-white);
+  box-shadow: 0 4px 12px rgba(11, 107, 58, 0.3);
+}
+
+.badge-premium {
+  background: var(--golden-accent);
+  color: var(--dark-forest);
+  box-shadow: 0 4px 12px rgba(245, 197, 66, 0.35);
+}
+
+.badge-new {
+  background: #2C7BE5;
+  color: var(--milk-white);
+  box-shadow: 0 4px 12px rgba(44, 123, 229, 0.3);
+}
+
 /* ==========================================================================
    10. Sustainability Infographic
    ========================================================================== */

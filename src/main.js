@@ -414,20 +414,23 @@ ScrollTrigger.create({
 const filterBtns = document.querySelectorAll('.filter-btn');
 const productCards = document.querySelectorAll('.product-card');
 
+// Ensure all product cards start visible — clear any stale GSAP inline styles
+gsap.set('.product-card', { clearProps: 'all' });
+
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
-    // Remove active
     filterBtns.forEach(b => b.classList.remove('active'));
-    // Add active
     btn.classList.add('active');
-    
+
     const filter = btn.getAttribute('data-filter');
-    
+
+    // Fade out all cards
     gsap.to(productCards, {
-      scale: 0.9,
+      scale: 0.92,
       opacity: 0,
-      duration: 0.25,
-      stagger: 0.05,
+      duration: 0.22,
+      stagger: 0.04,
+      ease: 'power2.in',
       onComplete: () => {
         productCards.forEach(card => {
           const category = card.getAttribute('data-category');
@@ -437,33 +440,43 @@ filterBtns.forEach(btn => {
             card.style.display = 'none';
           }
         });
-        
-        // Stagger back in
+
         const visibleCards = Array.from(productCards).filter(c => c.style.display !== 'none');
+        // Clear GSAP inline styles first to prevent stacking
+        gsap.set(visibleCards, { opacity: 0, scale: 0.92, y: 20, clearProps: 'none' });
         gsap.to(visibleCards, {
           scale: 1,
           opacity: 1,
+          y: 0,
           duration: 0.5,
           stagger: 0.08,
-          ease: 'power2.out'
+          ease: 'back.out(1.4)',
         });
       }
     });
   });
 });
 
-// Initial Product Cards Entrance
-gsap.from('.product-card', {
-  opacity: 0,
-  y: 40,
-  duration: 0.8,
-  stagger: 0.1,
-  ease: 'power2.out',
-  scrollTrigger: {
-    trigger: '#products',
-    start: 'top 75%'
+// Initial Product Cards Entrance — use fromTo so the end state (opacity:1) is explicit
+// This prevents cards staying invisible if ScrollTrigger fires late or is miscalculated
+gsap.fromTo('.product-card',
+  { opacity: 0, y: 48 },
+  {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    stagger: 0.1,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: '#products',
+      start: 'top 80%',
+      once: true,
+      toggleActions: 'play none none none',
+    },
+    // Safety net: if ScrollTrigger never fires, make cards visible anyway
+    onComplete: () => gsap.set('.product-card', { clearProps: 'all' }),
   }
-});
+);
 
 // ==========================================================================
 // Section 9: Sustainability Panels
