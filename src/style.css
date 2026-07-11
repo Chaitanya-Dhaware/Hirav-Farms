@@ -434,6 +434,8 @@ nav a:hover::after {
   border: none;
   cursor: pointer;
   padding: 4px;
+  position: relative;
+  z-index: 1005;
 }
 
 .mobile-menu-toggle span {
@@ -3199,4 +3201,554 @@ footer {
   .page-hero-content h1 {
     font-size: 1.8rem;
   }
+}
+/* ==========================================================================
+   Responsive Adaptations — Multi-Page Premium Mobile-First Overhaul
+   ========================================================================== */
+
+/* --- Global Section Spacing & Heights --- */
+@media (max-width: 900px) {
+  section {
+    padding: 3.5rem 5% !important;
+    width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Compress vertical spacing by 50% */
+  .row, .farmer-row, .contact-row, .app-row, .lab-row, .farming-container {
+    flex-direction: column !important;
+    gap: 2.2rem !important;
+    margin-top: 1.5rem !important;
+  }
+
+  .col-6, .journey-img-container, .journey-text, .farming-canvas-container, 
+  .farming-content, .lab-graphics, .lab-details, .farmer-visual, 
+  .farmer-story-content, .app-visual-wrapper, .app-text, 
+  .contact-form-container, .contact-info-panel {
+    width: 100% !important;
+    flex: none !important;
+  }
+
+  /* Sticky Header height adjustment */
+  header {
+    padding: 0.75rem 1.5rem !important;
+  }
+  header.scrolled {
+    padding: 0.6rem 1.5rem !important;
+  }
+  .logo {
+    font-size: 1.45rem !important;
+  }
+  .logo span {
+    font-size: 0.55rem !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  /* Mobile menu toggle display */
+  .mobile-menu-toggle {
+    display: block !important;
+  }
+
+  /* Page Heros styling for mobile */
+  .page-hero {
+    height: 48vh !important;
+    min-height: 290px !important;
+    padding-top: 4.5rem !important;
+  }
+
+  .page-hero-content h1 {
+    font-size: 2.2rem !important;
+  }
+
+  /* Overlap spacing offset for sticky header */
+  #app {
+    padding-top: 0;
+  }
+
+  /* ==========================================================================
+     Tab Bar & Product Filter Overflow (Horizontal Swiping)
+     ========================================================================== */
+  .plant-tabs, .products-filter {
+    width: 100vw !important;
+    margin-left: -5vw !important;
+    padding: 0.4rem 5vw !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.65rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x mandatory !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(11, 107, 58, 0.08) !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Hide scrollbars but keep horizontal swiping functionality */
+  .plant-tabs::-webkit-scrollbar, .products-filter::-webkit-scrollbar {
+    display: none !important;
+  }
+  .plant-tabs, .products-filter {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
+
+  .plant-tab-btn, .filter-btn {
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    scroll-snap-align: start !important;
+    padding: 0.65rem 1.3rem !important;
+    font-size: 0.88rem !important;
+    border-radius: 30px !important;
+    border: 1.5px solid rgba(11, 107, 58, 0.12) !important;
+    background: var(--milk-white) !important;
+    color: var(--text-dark) !important;
+    box-shadow: var(--shadow-sm) !important;
+    height: 48px !important; /* Touch target */
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-bottom: 0 !important;
+  }
+
+  .plant-tab-btn.active, .filter-btn.active {
+    background: var(--primary-green) !important;
+    color: var(--milk-white) !important;
+    border-color: var(--primary-green) !important;
+  }
+
+  /* ==========================================================================
+     Journey Section Overhaul (Vertical Stacking)
+     ========================================================================== */
+  #journey-pin {
+    height: auto !important;
+    overflow: visible !important;
+    width: 100% !important;
+  }
+
+  .journey-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: auto !important;
+    gap: 3.5rem !important;
+  }
+
+  .journey-stage {
+    width: 100vw !important;
+    height: auto !important;
+    padding: 1.5rem 0 !important;
+    margin-bottom: 0 !important;
+    overflow: visible !important;
+  }
+
+  .journey-layout {
+    flex-direction: column !important;
+    width: 90vw !important;
+    margin: 0 auto !important;
+    gap: 1.8rem !important;
+    height: auto !important;
+  }
+
+  /* Journey Visuals collage sizing */
+  .journey-visuals {
+    width: 100% !important;
+    height: 280px !important;
+    flex: none !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+  }
+
+  .collage-wrapper {
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .collage-main {
+    width: 68% !important;
+    height: 68% !important;
+    border-radius: 16px !important;
+  }
+
+  .collage-sub {
+    width: 44% !important;
+    height: 44% !important;
+    border-radius: 12px !important;
+  }
+
+  .floating-fact-badge {
+    padding: 0.45rem 0.8rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .farmer-story-card {
+    width: 190px !important;
+    padding: 0.6rem 0.8rem !important;
+    border-radius: 12px !important;
+    bottom: 4% !important;
+    left: 4% !important;
+  }
+
+  .farmer-avatar {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .farmer-info h4 {
+    font-size: 0.78rem !important;
+  }
+
+  /* Journey Text styling & hiding indicators */
+  .journey-text {
+    padding-left: 0 !important;
+    flex: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .journey-text::before {
+    display: none !important; /* Hide vertical timeline line */
+  }
+
+  .journey-text::after {
+    display: none !important; /* Hide timeline glowing dot */
+  }
+
+  .journey-progress {
+    display: none !important; /* Hide horizontal progress indicator row */
+  }
+
+  .journey-stage-num {
+    font-size: 3.5rem !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  .journey-text h2 {
+    font-size: 1.6rem !important;
+    margin-bottom: 0.8rem !important;
+  }
+
+  .journey-text > p {
+    font-size: 0.95rem !important;
+    line-height: 1.65 !important;
+    margin-bottom: 1.2rem !important;
+  }
+
+  /* Hide decorative large background quote */
+  .bg-serif-quote {
+    display: none !important;
+  }
+
+  /* ==========================================================================
+     Testimonials Horizontal Swipe Cards
+     ========================================================================== */
+  .testimonials-carousel {
+    width: 100vw !important;
+    margin-left: -5vw !important;
+    padding: 0 5vw !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x mandatory !important;
+  }
+  .testimonials-carousel::-webkit-scrollbar {
+    display: none !important;
+  }
+  .testimonials-track {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1.2rem !important;
+    width: auto !important;
+    transform: none !important;
+  }
+  .testimonial-card {
+    flex: 0 0 82vw !important;
+    scroll-snap-align: start !important;
+    min-width: auto !important;
+    padding: 1.8rem 1.4rem !important;
+    box-shadow: var(--shadow-md) !important;
+  }
+  .carousel-controls {
+    display: none !important; /* Hide prev/next buttons on mobile */
+  }
+
+  /* ==========================================================================
+     Empty Stacking Gallery / Spacing Fix
+     ========================================================================== */
+  .gallery-grid {
+    gap: 1.5rem !important;
+  }
+  .gallery-item {
+    margin-bottom: 0 !important;
+  }
+
+  .preview-card {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+
+  .preview-card-alt {
+    direction: ltr !important;
+  }
+
+  .preview-card-visual {
+    height: 320px !important;
+  }
+
+  .preview-card-content {
+    padding: 3rem 6% !important;
+  }
+
+  .preview-why-icons {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .why-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .page-hero {
+    height: 55vh !important;
+    min-height: 380px !important;
+  }
+
+  .page-hero-content h1 {
+    font-size: 2.2rem !important;
+  }
+}
+
+/* --- Mobile Typography & Grid Scale (under 768px) --- */
+@media (max-width: 768px) {
+  /* Mobile-first Typography */
+  h1 {
+    font-size: 2.1rem !important;
+    line-height: 1.15 !important;
+  }
+  
+  h2 {
+    font-size: 1.72rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  h3 {
+    font-size: 1.3rem !important;
+    margin-bottom: 0.55rem !important;
+  }
+
+  p {
+    font-size: 0.95rem !important;
+    line-height: 1.62 !important;
+    color: var(--text-muted) !important;
+  }
+
+  .subtitle {
+    font-size: 0.78rem !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Spacing */
+  section {
+    padding: 3rem 5% !important;
+  }
+
+  /* Header safe-area container */
+  #header-nav {
+    padding-top: 6.5rem !important;
+  }
+
+  /* Mobile Grid (2x2) for statistics counters */
+  .why-stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    margin-top: 1.8rem !important;
+  }
+
+  .why-stat-card {
+    padding: 1.5rem 0.8rem !important;
+    border-radius: 16px !important;
+  }
+
+  .why-stat-num {
+    font-size: 2rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  /* High-Contrast Sustainability Stats Labels for readability */
+  .why-stat-label {
+    font-size: 0.78rem !important;
+    color: rgba(255, 255, 255, 0.94) !important; /* Darkened/brightened for strong contrast */
+    line-height: 1.4 !important;
+  }
+
+  /* Light background stats adjustments */
+  #sus-stats .why-stat-label {
+    color: var(--text-dark) !important; /* Solid dark text on cream background */
+    font-weight: 500 !important;
+  }
+
+  /* ==========================================================================
+     Products Grid & Mobile Touch Targets
+     ========================================================================== */
+  .products-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.8rem !important;
+  }
+
+  .product-card {
+    padding: 1.2rem !important;
+    border-radius: 20px !important;
+    flex-direction: row !important;
+    gap: 1.2rem !important;
+    align-items: center !important;
+    text-align: left !important;
+    min-height: auto !important;
+  }
+
+  .product-img-wrapper {
+    width: 90px !important;
+    height: 90px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .product-info {
+    flex: 1 !important;
+    padding: 0 !important;
+  }
+
+  .product-info h3 {
+    font-size: 1.15rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  .product-info p {
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.6rem !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .product-meta {
+    margin-top: 0.4rem !important;
+  }
+
+  .product-price {
+    font-size: 1.05rem !important;
+  }
+
+  /* Minimum 48px touch target for product buttons */
+  .product-btn {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+  }
+
+  /* All interactive buttons touch padding */
+  .btn {
+    height: 48px !important;
+    padding: 0 1.6rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* ==========================================================================
+     Dairy Plant Interactive Section Sizing
+     ========================================================================== */
+  .plant-display {
+    padding: 1.5rem 1rem !important;
+    gap: 1.5rem !important;
+  }
+
+  .plant-visual {
+    height: 160px !important;
+  }
+
+  .plant-info h3 {
+    font-size: 1.25rem !important;
+  }
+
+  .plant-info p {
+    font-size: 0.9rem !important;
+  }
+
+  /* ==========================================================================
+     About Section Layout Adjustments
+     ========================================================================== */
+  .about-badge-item {
+    padding: 1.2rem !important;
+  }
+
+  .badge-icon-wrapper {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 1.2rem !important;
+  }
+
+  .about-badge-item h4 {
+    font-size: 1.1rem !important;
+  }
+
+  .quality-stamps {
+    justify-content: center !important;
+    gap: 1.5rem !important;
+    margin-top: 1.8rem !important;
+  }
+
+  .quality-stamp img {
+    width: 65px !important;
+    height: 65px !important;
+  }
+
+  /* ==========================================================================
+     Home Section Hero Adjustments
+     ========================================================================== */
+  .hero-content {
+    padding: 0 1rem !important;
+  }
+  .hero-content h1 {
+    font-size: 2.3rem !important;
+  }
+  .hero-content p {
+    font-size: 1.05rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  /* Hide large decorative graphics */
+  .floating-leaf, .flying-bird {
+    display: none !important;
+  }
+
+  .preview-products-grid {
+    flex-wrap: wrap !important;
+  }
+
+  .journey-preview-steps {
+    padding: 2rem 1.5rem !important;
+  }
+
+  .page-hero {
+    height: 50vh !important;
+    min-height: 320px !important;
+  }
+
+  .page-hero-content h1 {
+    font-size: 1.8rem !important;
+  }
+}
+
+/* Specific viewports checks (prevent layout breaking) */
+@media (max-width: 360px) {
+  h1 { font-size: 1.95rem !important; }
+  h2 { font-size: 1.55rem !important; }
+  .why-stats-grid { grid-template-columns: 1fr !important; } /* Stack stats on extra small devices */
+  .product-card { flex-direction: column !important; text-align: center !important; }
+  .product-img-wrapper { width: 120px !important; height: 120px !important; margin: 0 auto !important; }
 }

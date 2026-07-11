@@ -97,17 +97,12 @@ export function html() {
 
       <!-- Journey Preview -->
       <div class="preview-card" id="preview-journey">
-        <div class="preview-card-visual preview-journey-visual">
-          <div class="journey-preview-steps">
-            <div class="jp-step"><span class="jp-num">01</span><span class="jp-label">Healthy Buffaloes</span></div>
-            <div class="jp-step"><span class="jp-num">03</span><span class="jp-label">Machine Milking</span></div>
-            <div class="jp-step"><span class="jp-num">05</span><span class="jp-label">Lab Testing</span></div>
-            <div class="jp-step"><span class="jp-num">10</span><span class="jp-label">Your Table</span></div>
-          </div>
+        <div class="preview-card-visual">
+          <img src="/assets/hero-farm.jpg" alt="Hirav Farms lush pastures representing the farm-to-family journey" />
         </div>
         <div class="preview-card-content">
           <span class="subtitle">Farm to Family</span>
-          <h2>10 Steps of Purity</h2>
+          <h2>Our Purity Journey</h2>
           <p>Follow the remarkable journey of every drop — from our stress-free Murrah buffaloes on organic pastures to your morning glass of fresh, cold, pure milk.</p>
           <a href="/#/journey" class="btn btn-primary preview-btn">
             Explore Journey <i class="fa-solid fa-arrow-right btn-icon"></i>
@@ -254,11 +249,10 @@ export function init(gsap, ScrollTrigger, lenis) {
     }
   });
 
-  gsap.from('.jp-step', {
+  gsap.from('#preview-journey img', {
     opacity: 0,
-    x: -30,
-    duration: 0.6,
-    stagger: 0.15,
+    scale: 0.95,
+    duration: 0.8,
     ease: 'power2.out',
     scrollTrigger: {
       trigger: '#preview-journey',

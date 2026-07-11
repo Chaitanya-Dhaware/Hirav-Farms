@@ -336,7 +336,7 @@ export function init(gsap, ScrollTrigger, lenis, MotionPathPlugin) {
   const journeyWrapper = document.getElementById('journey-wrapper');
   const stages = document.querySelectorAll('.journey-stage');
 
-  if (journeyWrapper && stages.length) {
+  if (journeyWrapper && stages.length && window.innerWidth > 900) {
     // Ensure layout is done before measuring
     requestAnimationFrame(() => {
       ScrollTrigger.refresh();
@@ -374,6 +374,11 @@ export function init(gsap, ScrollTrigger, lenis, MotionPathPlugin) {
           lenis.scrollTo(triggerStart + targetX, { duration: 1.2 });
         });
       });
+    });
+  } else {
+    // Mobile layouts: refresh scrolltrigger anyway
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
     });
   }
 

@@ -219,14 +219,23 @@ export function init(gsap, ScrollTrigger) {
   }
 
   // Income stat
-  gsap.from('#farmer-stat-income', {
-    textContent: 0, duration: 2.2, ease: 'power2.out', snap: { textContent: 1 },
-    scrollTrigger: { trigger: '#farmer-stories', start: 'top 75%' },
-    onUpdate: function () {
-      const el = document.getElementById('farmer-stat-income');
-      if (el) el.innerHTML = '+' + Math.ceil(el.textContent) + '%';
-    }
-  });
+  const incomeEl = document.getElementById('farmer-stat-income');
+  if (incomeEl) {
+    const targetVal = parseInt(incomeEl.textContent.replace(/[^0-9]/g, '')) || 35;
+    gsap.fromTo(incomeEl,
+      { textContent: 0 },
+      {
+        textContent: targetVal,
+        duration: 2.2,
+        ease: 'power2.out',
+        snap: { textContent: 1 },
+        scrollTrigger: { trigger: '#farmer-stories', start: 'top 75%' },
+        onUpdate: function () {
+          incomeEl.innerHTML = '+' + Math.ceil(incomeEl.textContent) + '%';
+        }
+      }
+    );
+  }
 
   // Testimonial carousel
   const track = document.getElementById('testimonials-track');
