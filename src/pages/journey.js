@@ -62,7 +62,7 @@ export function html() {
                 <div class="collage-sub"><img src="/assets/hero-farm.jpg" alt="Lush organic pastures" class="collage-img" /></div>
                 <div class="floating-fact-badge float-top-left"><i class="fa-solid fa-ban" style="color:var(--golden-accent)"></i><span>🌾 Zero Preservatives</span></div>
                 <div class="farmer-story-card">
-                  <img src="https://placehold.co/100x100/0b6b3a/fff?text=GP" alt="Farmer Ganesh Patil avatar" class="farmer-avatar" />
+                  <img src="/images/generated/journey/ganesh-patil.webp" alt="Farmer Ganesh Patil avatar" class="farmer-avatar" />
                   <div class="farmer-info"><span>Meet Our Farmer</span><h4>Ganesh Patil</h4><p>"Our buffaloes are family, not machines."</p></div>
                 </div>
                 <div class="knowledge-bubble" style="top:25%; left:68%;">
@@ -286,7 +286,7 @@ export function html() {
                 <div class="collage-sub"><img src="/assets/milk-bottle.png" alt="Pure milk glass jar" class="collage-img" /></div>
                 <div class="floating-fact-badge float-top-left"><i class="fa-solid fa-home" style="color:var(--golden-accent)"></i><span>🥛 Ready by 7:00 AM</span></div>
                 <div class="farmer-story-card">
-                  <img src="https://placehold.co/100x100/0b6b3a/fff?text=SP" alt="Sukhdev Singh avatar" class="farmer-avatar" />
+                  <img src="/images/generated/journey/sukhdev-singh.webp" alt="Sukhdev Singh avatar" class="farmer-avatar" />
                   <div class="farmer-info"><span>Farmer Welfare</span><h4>Sukhdev Singh</h4><p>"We harvest purity with pride."</p></div>
                 </div>
                 <div class="knowledge-bubble" style="top:25%; left:68%;">

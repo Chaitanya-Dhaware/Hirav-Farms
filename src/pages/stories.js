@@ -67,7 +67,7 @@ export function html() {
             </div>
             <p class="testimonial-text">"The fat consistency in Gaudai milk is incredible. My kids absolutely love the taste, and as a mother, I have peace of mind knowing it contains zero antibiotics."</p>
             <div class="testimonial-user">
-              <img src="https://placehold.co/50x50/e0e0e0/555?text=A" alt="Ananya Sharma avatar" class="testimonial-avatar" />
+              <img src="/images/generated/testimonials/ananya-sharma.webp" alt="Ananya Sharma avatar" class="testimonial-avatar" />
               <div class="testimonial-user-info"><h4>Ananya Sharma</h4><p>Parent &amp; Nutritionist, Gurgaon</p></div>
             </div>
           </div>
@@ -78,7 +78,7 @@ export function html() {
             </div>
             <p class="testimonial-text">"I ordered their Bilona Ghee last month. The aroma takes me straight back to my grandmother's home in Punjab. Pure quality and premium glass packaging."</p>
             <div class="testimonial-user">
-              <img src="https://placehold.co/50x50/e0e0e0/555?text=R" alt="Rajesh Kapoor avatar" class="testimonial-avatar" />
+              <img src="/images/generated/testimonials/rajesh-kapoor.webp" alt="Rajesh Kapoor avatar" class="testimonial-avatar" />
               <div class="testimonial-user-info"><h4>Rajesh Kapoor</h4><p>Home Chef, Noida</p></div>
             </div>
           </div>
@@ -89,7 +89,7 @@ export function html() {
             </div>
             <p class="testimonial-text">"Their automated subscription is so smooth. The cold delivery driver drops the chilled milk bottle by 6:30 AM every morning. Highly recommended!"</p>
             <div class="testimonial-user">
-              <img src="https://placehold.co/50x50/e0e0e0/555?text=M" alt="Meera Sen avatar" class="testimonial-avatar" />
+              <img src="/images/generated/testimonials/meera-sen.webp" alt="Meera Sen avatar" class="testimonial-avatar" />
               <div class="testimonial-user-info"><h4>Meera Sen</h4><p>Tech Professional, Delhi</p></div>
             </div>
           </div>

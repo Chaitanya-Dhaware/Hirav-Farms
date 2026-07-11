@@ -151,13 +151,13 @@ export function html() {
 
           <div class="quality-stamps" id="quality-stamps-container">
             <div class="quality-stamp" id="stamp-iso">
-              <img src="https://placehold.co/80x80/0b6b3a/fff?text=ISO+22000" alt="ISO Certification Seal" style="border-radius:50%; border:2px solid var(--golden-accent);" />
+              <img src="/images/generated/about/iso-22000.webp" alt="ISO Certification Seal" style="border-radius:50%; border:2px solid var(--golden-accent);" />
             </div>
             <div class="quality-stamp" id="stamp-fssai">
-              <img src="https://placehold.co/80x80/0b6b3a/fff?text=FSSAI" alt="FSSAI Standard Logo" style="border-radius:50%; border:2px solid var(--golden-accent);" />
+              <img src="/images/generated/about/fssai.webp" alt="FSSAI Standard Logo" style="border-radius:50%; border:2px solid var(--golden-accent);" />
             </div>
             <div class="quality-stamp" id="stamp-organic">
-              <img src="https://placehold.co/80x80/0b6b3a/fff?text=ORGANIC" alt="Organic Certification Badge" style="border-radius:50%; border:2px solid var(--golden-accent);" />
+              <img src="/images/generated/about/organic.webp" alt="Organic Certification Badge" style="border-radius:50%; border:2px solid var(--golden-accent);" />
             </div>
           </div>
         </div>
