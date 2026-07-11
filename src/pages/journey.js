@@ -326,58 +326,6 @@ export function html() {
       </div>
     </section>
 
-    <!-- ==========================================
-         Organic Farming SVG Section
-         ========================================== -->
-    <section id="organic-farming">
-      <span class="subtitle">Sustainable Agriculture</span>
-      <h2>How We Farm Legally &amp; Organically</h2>
-      <div class="farming-container">
-        <div class="farming-canvas-container">
-          <svg id="farming-scene" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
-            <rect width="800" height="500" fill="#E8F4F0" />
-            <path id="soil-bed" d="M 0 420 Q 200 390, 400 410 T 800 380 L 800 500 L 0 500 Z" fill="#755139" />
-            <path id="soil-grass-line" d="M 0 420 Q 200 390, 400 410 T 800 380" fill="none" stroke="#528F6F" stroke-width="4" />
-            <path id="river" d="M -50 480 Q 250 430, 400 450 T 850 490" fill="none" stroke="#A8DADC" stroke-width="16" stroke-dasharray="10 10" />
-            <g id="grass-blades" fill="#88D66C">
-              <path d="M 120 405 Q 110 370, 100 350 Q 120 375, 125 405" />
-              <path d="M 280 400 Q 275 365, 260 340 Q 285 370, 285 400" />
-              <path d="M 500 400 Q 490 350, 480 320 Q 510 360, 505 400" />
-              <path d="M 680 390 Q 690 340, 710 310 Q 690 350, 680 390" />
-            </g>
-            <g id="farm-tree" transform="translate(600, 260) scale(0)">
-              <rect x="25" y="60" width="10" height="60" fill="#5C4033" />
-              <circle cx="30" cy="50" r="35" fill="#0B6B3A" />
-              <circle cx="10" cy="35" r="25" fill="#67C23A" />
-              <circle cx="50" cy="40" r="22" fill="#88D66C" />
-            </g>
-            <g id="butterfly" transform="translate(100, 200)">
-              <path d="M 0 0 C -10 -15, -25 -10, -5 5 C -25 20, -10 25, 0 10 C 10 25, 25 20, 5 5 C 25 -10, 10 -15, 0 0" fill="#F5C542" />
-              <line x1="0" y1="0" x2="0" y2="10" stroke="#000" stroke-width="1" />
-            </g>
-          </svg>
-        </div>
-        <div class="farming-content">
-          <h3>Circular Eco-Farming</h3>
-          <p>Nothing goes to waste. Organic manure from our buffaloes fertilizes the pastures. This rich soil yields premium alfalfa, maize, and Napier grass, which in turn feeds the herd. We harvest rainwater to feed the soil and conserve underground aquifers.</p>
-          <div class="farming-perk">
-            <div class="farming-perk-icon"><i class="fa-solid fa-leaf"></i></div>
-            <div class="farming-perk-text">
-              <h4>Chemical-Free Pastures</h4>
-              <p>No chemical fertilizers, synthetic insecticides, or weedicides ever touch our soil.</p>
-            </div>
-          </div>
-          <div class="farming-perk">
-            <div class="farming-perk-icon"><i class="fa-solid fa-droplet"></i></div>
-            <div class="farming-perk-text">
-              <h4>Water Conservation</h4>
-              <p>Drip irrigation and rainwater harvesting systems reduce groundwater usage by 40%.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
   ${footerHTML()}`;
 }
 
@@ -429,21 +377,4 @@ export function init(gsap, ScrollTrigger, lenis, MotionPathPlugin) {
     });
   }
 
-  // Organic farming SVG
-  const farmingScene = document.getElementById('farming-scene');
-  if (farmingScene) {
-    const farmTl = gsap.timeline({
-      scrollTrigger: { trigger: '#organic-farming', start: 'top 80%', end: 'bottom 40%', scrub: 1 }
-    });
-    farmTl.from('#grass-blades path', { scaleY: 0, transformOrigin: 'bottom', duration: 1.5, stagger: 0.2 })
-      .to('#farm-tree', { scale: 1, duration: 2, ease: 'back.out(1.7)' }, '-=1.2')
-      .to('#river', { strokeDashoffset: -100, duration: 3, ease: 'none' }, '-=2')
-      .to('#butterfly', {
-        motionPath: {
-          path: [{ x: 100, y: 200 }, { x: 200, y: 120 }, { x: 350, y: 180 }, { x: 500, y: 80 }, { x: 700, y: 150 }],
-          autoRotate: true
-        },
-        duration: 3,
-      }, '-=2.5');
-  }
 }
