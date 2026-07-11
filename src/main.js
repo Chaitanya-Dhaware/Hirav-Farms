@@ -4,7 +4,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import Lenis from 'lenis';
 
-// Register plugins
+// Page modules
+import * as homePage from './pages/home.js';
+import * as aboutPage from './pages/about.js';
+import * as whyPage from './pages/why-hirav-farms.js';
+import * as journeyPage from './pages/journey.js';
+import * as productsPage from './pages/products.js';
+import * as sustainabilityPage from './pages/sustainability.js';
+import * as storiesPage from './pages/stories.js';
+import * as contactPage from './pages/contact.js';
+
+// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 // ==========================================================================
@@ -27,7 +37,6 @@ function raf(time) {
 }
 requestAnimationFrame(raf);
 
-// Link Lenis to GSAP ScrollTrigger
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add((time) => {
   lenis.raf(time * 1000);
@@ -55,20 +64,6 @@ gsap.ticker.add(() => {
   follower.style.transform = `translate3d(${posX}px, ${posY}px, 0)`;
 });
 
-// Hover states for cursor
-function updateHoverListeners() {
-  const hoverables = document.querySelectorAll('a, button, .why-card, .product-card, .blog-card, .gallery-item, .plant-tab-btn, input, textarea');
-  hoverables.forEach(item => {
-    item.addEventListener('mouseenter', () => {
-      document.body.classList.add('hovering-link');
-    });
-    item.addEventListener('mouseleave', () => {
-      document.body.classList.remove('hovering-link');
-    });
-  });
-}
-updateHoverListeners();
-
 // ==========================================================================
 // Mobile Nav Toggle
 // ==========================================================================
@@ -79,17 +74,8 @@ menuToggle.addEventListener('click', () => {
   menuToggle.classList.toggle('active');
 });
 
-// Close nav when clicking a link
-const navLinks = document.querySelectorAll('#header-nav a');
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    headerNav.classList.remove('active');
-    menuToggle.classList.remove('active');
-  });
-});
-
 // ==========================================================================
-// Header Scroll State Trigger
+// Header Scroll State
 // ==========================================================================
 const header = document.getElementById('header');
 ScrollTrigger.create({
@@ -99,595 +85,142 @@ ScrollTrigger.create({
 });
 
 // ==========================================================================
-// Section 1: Hero Section (Parallax & Counters)
+// Hover listeners for cursor — called after each page render
 // ==========================================================================
-// Background Parallax
-gsap.to('#hero-img', {
-  yPercent: 15,
-  ease: 'none',
-  scrollTrigger: {
-    trigger: '#hero',
-    start: 'top top',
-    end: 'bottom top',
-    scrub: true,
-  }
-});
-
-// Text & Action Animations
-const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-heroTl.from('#hero-title', {
-  y: 60,
-  opacity: 0,
-  duration: 1.2,
-  delay: 0.2
-}).from('#hero-subtitle', {
-  y: 30,
-  opacity: 0,
-  duration: 0.8
-}, '-=0.8').from('.hero-actions', {
-  y: 30,
-  opacity: 0,
-  duration: 0.8
-}, '-=0.6').from('#hero-scroll-indicator', {
-  opacity: 0,
-  y: -10,
-  duration: 1,
-  repeat: -1,
-  yoyo: true,
-  ease: 'power1.inOut'
-}, '-=0.2');
-
-// Counter Animations
-const counters = document.querySelectorAll('.counter-num');
-counters.forEach(counter => {
-  const target = +counter.getAttribute('data-target');
-  gsap.fromTo(counter, { textContent: 0 }, {
-    textContent: target,
-    duration: 2,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: counter,
-      start: 'top 90%',
-      toggleActions: 'play none none none',
-    },
-    snap: { textContent: 1 },
-    onUpdate: function () {
-      const current = Math.ceil(counter.textContent);
-      counter.innerHTML = current.toLocaleString() + (target === 100 ? '%' : '+');
-    }
-  });
-});
-
-// ==========================================================================
-// Section 2: About Section Timeline Progress Drawing
-// ==========================================================================
-const timelineItems = document.querySelectorAll('.timeline-item');
-timelineItems.forEach((item, idx) => {
-  ScrollTrigger.create({
-    trigger: item,
-    start: 'top 75%',
-    onEnter: () => {
-      item.classList.add('active');
-      // Draw progress line dynamically
-      const progressPercent = ((idx + 1) / timelineItems.length) * 100;
-      gsap.to('#timeline-progress', {
-        height: `${progressPercent}%`,
-        duration: 0.5,
-        ease: 'power1.out'
-      });
-    },
-    onLeaveBack: () => {
-      item.classList.remove('active');
-      const progressPercent = (idx / timelineItems.length) * 100;
-      gsap.to('#timeline-progress', {
-        height: `${progressPercent}%`,
-        duration: 0.5,
-        ease: 'power1.out'
-      });
-    }
-  });
-});
-
-// ==========================================================================
-// Section 3: Why Choose Us Cards reveal
-// ==========================================================================
-gsap.from('.why-card', {
-  opacity: 0,
-  y: 50,
-  scale: 0.95,
-  duration: 0.8,
-  stagger: 0.15,
-  ease: 'back.out(1.4)',
-  scrollTrigger: {
-    trigger: '#why-choose',
-    start: 'top 75%',
-  }
-});
-
-// ==========================================================================
-// Section 4: Pinned Farm to Home Journey
-// ==========================================================================
-const journeyWrapper = document.getElementById('journey-wrapper');
-const stages = document.querySelectorAll('.journey-stage');
-
-if (journeyWrapper) {
-  const horizontalScrollAmount = journeyWrapper.scrollWidth - window.innerWidth;
-  
-  gsap.to(journeyWrapper, {
-    x: -horizontalScrollAmount,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#journey-pin',
-      pin: true,
-      scrub: 0.5,
-      start: 'top top',
-      end: () => `+=${horizontalScrollAmount}`,
-      onUpdate: (self) => {
-        // Update progress bar
-        const percent = self.progress * 100;
-        document.getElementById('journey-progress-bar').style.width = `${percent}%`;
-        
-        // Activate step dots
-        const stepIndex = Math.min(
-          Math.floor(self.progress * stages.length),
-          stages.length - 1
-        );
-        document.querySelectorAll('.journey-step-dot').forEach((dot, idx) => {
-          if (idx === stepIndex) {
-            dot.classList.add('active');
-          } else {
-            dot.classList.remove('active');
-          }
-        });
-      }
-    }
-  });
-
-  // Clicking dots triggers scroll
-  document.querySelectorAll('.journey-step-dot').forEach((dot) => {
-    dot.addEventListener('click', () => {
-      const targetSlide = parseInt(dot.getAttribute('data-slide'));
-      const targetScroll = (targetSlide / (stages.length - 1)) * horizontalScrollAmount;
-      
-      // Calculate ScrollTrigger scroll top matching the target scroll
-      const st = ScrollTrigger.getById('journey-pin-scroll'); // We'll add ID below or use standard scroll
-      const trigger = ScrollTrigger.create({
-        trigger: '#journey-pin',
-        start: 'top top',
-        end: () => `+=${horizontalScrollAmount}`
-      });
-      const triggerStart = trigger.start;
-      trigger.kill();
-      
-      lenis.scrollTo(triggerStart + targetScroll, { duration: 1.2 });
-    });
+function updateHoverListeners() {
+  const hoverables = document.querySelectorAll('a, button, .why-card, .product-card, .blog-card, .gallery-item, .plant-tab-btn, input, textarea');
+  hoverables.forEach(item => {
+    item.addEventListener('mouseenter', () => document.body.classList.add('hovering-link'));
+    item.addEventListener('mouseleave', () => document.body.classList.remove('hovering-link'));
   });
 }
 
 // ==========================================================================
-// Section 5: Organic Farming SVG growth scroll animations
+// Router
 // ==========================================================================
-const farmingScene = document.getElementById('farming-scene');
-if (farmingScene) {
-  const farmTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '#organic-farming',
-      start: 'top 80%',
-      end: 'bottom 40%',
-      scrub: 1,
-    }
-  });
-  
-  // Grass grows
-  farmTl.from('#grass-blades path', {
-    scaleY: 0,
-    transformOrigin: 'bottom',
-    duration: 1.5,
-    stagger: 0.2
-  })
-  // Tree grows
-  .to('#farm-tree', {
-    scale: 1,
-    duration: 2,
-    ease: 'back.out(1.7)'
-  }, '-=1.2')
-  // Water flows (river offset)
-  .to('#river', {
-    strokeDashoffset: -100,
-    duration: 3,
-    ease: 'none'
-  }, '-=2')
-  // Butterfly flies
-  .to('#butterfly', {
-    motionPath: {
-      path: [{x: 100, y: 200}, {x: 200, y: 120}, {x: 350, y: 180}, {x: 500, y: 80}, {x: 700, y: 150}],
-      autoRotate: true
-    },
-    duration: 3,
-  }, '-=2.5');
-}
-
-// ==========================================================================
-// Section 6: Dairy Plant Tab Logic
-// ==========================================================================
-const plantData = {
-  milking: {
-    title: 'Touch-Free Milking',
-    desc: 'Our Murrah buffaloes are milked in pristine stalls. The milk flows straight into stainless-steel pipelines without exposure to human touch, dust, or air, guaranteeing absolute sterility.',
-    badge: '100% sterile system'
-  },
-  pasteur: {
-    title: 'Rapid Pasteurization',
-    desc: 'The milk is pasteurized using high-temperature short-time (HTST) systems. This kills any bacteria while retaining maximum organic nutrients and natural enzymes.',
-    badge: 'thermal safety assured'
-  },
-  packaging: {
-    title: 'Sterilised Glass Bottling',
-    desc: 'Milk is filled cold into washed, pre-heated, and double-sterilised eco-friendly glass bottles. TAMPER-PROOF capping seals purity inside instantly.',
-    badge: 'plastic-free packaging'
-  },
-  monitoring: {
-    title: 'AI-Powered Temperature Check',
-    desc: 'Automated digital IoT systems monitor temperatures at every second. If any tank goes above 4.5°C, notifications are sent to dispatch teams instantly.',
-    badge: 'real-time IoT control'
-  }
+const routes = {
+  '/': homePage,
+  '/about': aboutPage,
+  '/why-hirav-farms': whyPage,
+  '/journey': journeyPage,
+  '/products': productsPage,
+  '/sustainability': sustainabilityPage,
+  '/stories': storiesPage,
+  '/contact': contactPage,
 };
 
-const tabButtons = document.querySelectorAll('.plant-tab-btn');
-const plantInfo = document.getElementById('plant-info-content');
-const milkFlowPipe = document.getElementById('milk-flow-pipe');
+// Page title map
+const pageTitles = {
+  '/': 'Hirav Farms | Pure Milk. Pure Farming. Pure Trust.',
+  '/about': 'About Hirav Farms | Our Story & Values',
+  '/why-hirav-farms': 'Why Hirav Farms | Dairy Purity Standards',
+  '/journey': 'Farm to Family Journey | Hirav Farms',
+  '/products': 'Dairy Products | Gaudai by Hirav Farms',
+  '/sustainability': 'Sustainability | Hirav Farms Ecological Commitments',
+  '/stories': 'Farmer Stories & Reviews | Hirav Farms',
+  '/contact': 'Contact Hirav Farms | Get In Touch',
+};
 
-tabButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    // Remove active
-    tabButtons.forEach(b => {
-      b.classList.remove('active');
-      b.setAttribute('aria-selected', 'false');
-    });
-    // Add active
-    btn.classList.add('active');
-    btn.setAttribute('aria-selected', 'true');
-    
-    // Animate pipe valve spin and faster milk flow on click
-    gsap.to('#plant-rotating-valve', { rotation: '+=360', duration: 0.8 });
-    gsap.fromTo(milkFlowPipe, { strokeDashoffset: 30 }, { strokeDashoffset: 0, repeat: 2, duration: 0.5, ease: 'none' });
-    
-    // Change text content with transition
-    const key = btn.id.replace('tab-', '');
-    const data = plantData[key];
-    
-    gsap.to(plantInfo, {
-      opacity: 0,
-      y: 10,
-      duration: 0.25,
-      onComplete: () => {
-        plantInfo.innerHTML = `
-          <h3>${data.title}</h3>
-          <p>${data.desc}</p>
-          <div class="plant-badge"><i class="fa-solid fa-shield-halved"></i> ${data.badge}</div>
-        `;
-        gsap.to(plantInfo, { opacity: 1, y: 0, duration: 0.35 });
-      }
-    });
-  });
-});
-
-// Continuous milk flow animation
-if (milkFlowPipe) {
-  gsap.to(milkFlowPipe, {
-    strokeDashoffset: -50,
-    repeat: -1,
-    duration: 2,
-    ease: 'none'
-  });
+function getPath() {
+  const hash = window.location.hash || '#/';
+  // Strip the leading `#` to get `/#/about` → `/about`
+  const path = hash.replace('#', '') || '/';
+  return path;
 }
 
-// ==========================================================================
-// Section 7: Laboratory Quality Test Tube filling & Seals
-// ==========================================================================
-gsap.to('#milk-tube-liquid', {
-  height: '85%',
-  duration: 2.5,
-  ease: 'power1.inOut',
-  scrollTrigger: {
-    trigger: '#laboratory',
-    start: 'top 60%',
-  }
-});
-
-// Stamp quality seals sequentially
-ScrollTrigger.create({
-  trigger: '#quality-stamps-container',
-  start: 'top 85%',
-  onEnter: () => {
-    document.querySelectorAll('.quality-stamp').forEach((stamp, i) => {
-      setTimeout(() => {
-        stamp.classList.add('stamp-active');
-      }, i * 350);
-    });
-  }
-});
-
-// ==========================================================================
-// Section 8: Products Filtering & Stagger reveal
-// ==========================================================================
-const filterBtns = document.querySelectorAll('.filter-btn');
-const productCards = document.querySelectorAll('.product-card');
-
-// Ensure all product cards start visible — clear any stale GSAP inline styles
-gsap.set('.product-card', { clearProps: 'all' });
-
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const filter = btn.getAttribute('data-filter');
-
-    // Fade out all cards
-    gsap.to(productCards, {
-      scale: 0.92,
-      opacity: 0,
-      duration: 0.22,
-      stagger: 0.04,
-      ease: 'power2.in',
-      onComplete: () => {
-        productCards.forEach(card => {
-          const category = card.getAttribute('data-category');
-          if (filter === 'all' || category === filter) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-
-        const visibleCards = Array.from(productCards).filter(c => c.style.display !== 'none');
-        // Clear GSAP inline styles first to prevent stacking
-        gsap.set(visibleCards, { opacity: 0, scale: 0.92, y: 20, clearProps: 'none' });
-        gsap.to(visibleCards, {
-          scale: 1,
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          stagger: 0.08,
-          ease: 'back.out(1.4)',
-        });
-      }
-    });
-  });
-});
-
-// Initial Product Cards Entrance — use fromTo so the end state (opacity:1) is explicit
-// This prevents cards staying invisible if ScrollTrigger fires late or is miscalculated
-gsap.fromTo('.product-card',
-  { opacity: 0, y: 48 },
-  {
-    opacity: 1,
-    y: 0,
-    duration: 0.8,
-    stagger: 0.1,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: '#products',
-      start: 'top 80%',
-      once: true,
-      toggleActions: 'play none none none',
-    },
-    // Safety net: if ScrollTrigger never fires, make cards visible anyway
-    onComplete: () => gsap.set('.product-card', { clearProps: 'all' }),
-  }
-);
-
-// ==========================================================================
-// Section 9: Sustainability Panels
-// ==========================================================================
-gsap.from('.sus-card', {
-  opacity: 0,
-  y: 30,
-  duration: 0.8,
-  stagger: 0.15,
-  scrollTrigger: {
-    trigger: '#sustainability',
-    start: 'top 80%',
-  }
-});
-
-// Spin solar panels icon
-gsap.to('#sus-solar .sus-icon-container i', {
-  rotationY: 360,
-  repeat: -1,
-  duration: 4,
-  ease: 'power1.inOut'
-});
-
-// Biogas burner animation
-gsap.to('#sus-biogas .sus-icon-container i', {
-  scale: 1.15,
-  repeat: -1,
-  yoyo: true,
-  duration: 1,
-  ease: 'power1.inOut'
-});
-
-// ==========================================================================
-// Section 10: Farmer Stories typing text quote & stats growth
-// ==========================================================================
-const farmerQuote = document.getElementById('farmer-quote-text');
-if (farmerQuote) {
-  const fullQuote = farmerQuote.textContent.trim();
-  farmerQuote.textContent = '';
-  
-  ScrollTrigger.create({
-    trigger: '#farmer-stories',
-    start: 'top 70%',
-    onEnter: () => {
-      let index = 0;
-      function type() {
-        if (index < fullQuote.length) {
-          farmerQuote.textContent += fullQuote.charAt(index);
-          index++;
-          setTimeout(type, 15);
-        }
-      }
-      type();
+function updateActiveNav(path) {
+  const navLinks = document.querySelectorAll('#header-nav a');
+  navLinks.forEach(link => {
+    link.classList.remove('nav-active');
+    const linkPath = link.getAttribute('href').replace('/#', '') || '/';
+    if (linkPath === path || (path === '/' && linkPath === '/')) {
+      link.classList.add('nav-active');
     }
   });
 }
 
-// Income growth graph/stat
-gsap.from('#farmer-stat-income', {
-  textContent: 0,
-  duration: 2.2,
-  ease: 'power2.out',
-  snap: { textContent: 1 },
-  scrollTrigger: {
-    trigger: '#farmer-stories',
-    start: 'top 75%'
-  },
-  onUpdate: function () {
-    const el = document.getElementById('farmer-stat-income');
-    el.innerHTML = '+' + Math.ceil(el.textContent) + '%';
-  }
-});
+let isNavigating = false;
+const overlay = document.getElementById('page-transition-overlay');
+const appEl = document.querySelector('#app');
 
-// ==========================================================================
-// Section 11: Testimonials Carousel Slider
-// ==========================================================================
-const track = document.getElementById('testimonials-track');
-const prevBtn = document.getElementById('prev-testi');
-const nextBtn = document.getElementById('next-testi');
-let currentSlide = 0;
+async function navigate(path) {
+  if (isNavigating) return;
+  isNavigating = true;
 
-if (track) {
-  const cards = document.querySelectorAll('.testimonial-card');
-  const maxSlides = cards.length;
-  
-  function getCardWidth() {
-    return cards[0].offsetWidth + parseInt(window.getComputedStyle(track).gap);
-  }
-  
-  function slideTo(idx) {
-    currentSlide = idx;
-    if (currentSlide < 0) currentSlide = 0;
-    if (currentSlide >= maxSlides) currentSlide = maxSlides - 1;
-    
-    const cardWidth = getCardWidth();
-    gsap.to(track, {
-      x: -currentSlide * cardWidth,
-      duration: 0.6,
-      ease: 'power3.out'
-    });
-  }
+  // Fade in overlay
+  gsap.to(overlay, { opacity: 1, duration: 0.18, ease: 'power2.in' });
 
-  prevBtn.addEventListener('click', () => slideTo(currentSlide - 1));
-  nextBtn.addEventListener('click', () => slideTo(currentSlide + 1));
-  
-  // Listen to resize
-  window.addEventListener('resize', () => slideTo(currentSlide));
+  await new Promise(r => setTimeout(r, 180));
+
+  // Kill all existing ScrollTrigger instances to prevent leaks
+  ScrollTrigger.getAll().forEach(t => t.kill());
+
+  // Scroll to top immediately
+  lenis.scrollTo(0, { immediate: true });
+  window.scrollTo(0, 0);
+
+  // Find the page module (fallback to home)
+  const page = routes[path] || routes['/'];
+
+  // Inject page HTML
+  appEl.innerHTML = page.html();
+
+  // Update meta title
+  document.title = pageTitles[path] || pageTitles['/'];
+
+  // Refresh hover listeners
+  updateHoverListeners();
+
+  // Close mobile nav if open
+  headerNav.classList.remove('active');
+  menuToggle.classList.remove('active');
+
+  // Update active nav link
+  updateActiveNav(path);
+
+  // Let the DOM paint
+  await new Promise(r => requestAnimationFrame(r));
+  await new Promise(r => requestAnimationFrame(r));
+
+  // Refresh ScrollTrigger with new layout
+  ScrollTrigger.refresh();
+
+  // Run page-specific animations
+  page.init(gsap, ScrollTrigger, lenis, MotionPathPlugin);
+
+  // Fade out overlay
+  gsap.to(overlay, { opacity: 0, duration: 0.35, ease: 'power2.out' });
+
+  isNavigating = false;
 }
 
-// ==========================================================================
-// Section 12: Gallery Stagger Reveal
-// ==========================================================================
-gsap.from('.gallery-item', {
-  opacity: 0,
-  y: 50,
-  duration: 0.8,
-  stagger: 0.1,
-  scrollTrigger: {
-    trigger: '#gallery',
-    start: 'top 75%',
-  }
+// Handle hash changes (back/forward, link clicks)
+window.addEventListener('hashchange', () => {
+  navigate(getPath());
 });
 
-// ==========================================================================
-// Section 13: Blog Cards Reveal
-// ==========================================================================
-gsap.from('.blog-card', {
-  opacity: 0,
-  y: 40,
-  duration: 0.8,
-  stagger: 0.15,
-  scrollTrigger: {
-    trigger: '#blog',
-    start: 'top 80%',
-  }
+// Handle logo click → home
+document.getElementById('header-logo').addEventListener('click', (e) => {
+  e.preventDefault();
+  window.location.hash = '#/';
 });
 
-// ==========================================================================
-// Section 14: Mobile App phone rotation & Screen swap on scroll
-// ==========================================================================
-const phone = document.getElementById('phone-container');
-if (phone) {
-  // Rotate phone as it scrolls into view
-  gsap.fromTo(phone, {
-    rotate: -15,
-    y: 100,
-    opacity: 0.3
-  }, {
-    rotate: 5,
-    y: 0,
-    opacity: 1,
-    scrollTrigger: {
-      trigger: '#mobile-app',
-      start: 'top 80%',
-      end: 'bottom 20%',
-      scrub: 1
-    }
-  });
-
-  // App floating cards entrance
-  gsap.from('#app-card-1', {
-    x: -50,
-    opacity: 0,
-    duration: 1,
-    scrollTrigger: { trigger: '#mobile-app', start: 'top 60%' }
-  });
-  
-  gsap.from('#app-card-2', {
-    x: 50,
-    opacity: 0,
-    duration: 1,
-    scrollTrigger: { trigger: '#mobile-app', start: 'top 60%' }
-  });
-
-  // Swap app screens on time loop
-  const appScreens = document.querySelectorAll('.phone-screen-img');
-  let currentScreenIdx = 0;
-  setInterval(() => {
-    appScreens[currentScreenIdx].classList.remove('active');
-    currentScreenIdx = (currentScreenIdx + 1) % appScreens.length;
-    appScreens[currentScreenIdx].classList.add('active');
-  }, 3000);
-}
-
-// ==========================================================================
-// Section 15: Contact form submit & Pins
-// ==========================================================================
-const contactForm = document.getElementById('contact-form-element');
-if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+// Intercept all nav link clicks for smooth SPA transitions
+document.getElementById('header-nav').addEventListener('click', (e) => {
+  const link = e.target.closest('a[href]');
+  if (!link) return;
+  const href = link.getAttribute('href');
+  if (href && href.startsWith('/#/')) {
     e.preventDefault();
-    const btn = document.getElementById('btn-submit-contact');
-    
-    // Change to loading state
-    btn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin btn-icon"></i>';
-    btn.disabled = true;
-    
-    setTimeout(() => {
-      btn.innerHTML = 'Success! <i class="fa-solid fa-check btn-icon"></i>';
-      btn.style.background = 'var(--fresh-green)';
-      
-      // Reset form
-      contactForm.reset();
-      
-      // Reset button after 3 seconds
-      setTimeout(() => {
-        btn.innerHTML = 'Send Message <i class="fa-solid fa-paper-plane btn-icon"></i>';
-        btn.style.background = '';
-        btn.disabled = false;
-        updateHoverListeners();
-      }, 3000);
-    }, 1500);
-  });
-}
+    const newPath = href.replace('/#', '') || '/';
+    if (window.location.hash !== '#' + newPath) {
+      window.location.hash = '#' + newPath;
+    } else {
+      // Same page re-navigate: scroll to top
+      lenis.scrollTo(0, { duration: 0.8 });
+    }
+  }
+});
+
+// Initial page load
+navigate(getPath());
