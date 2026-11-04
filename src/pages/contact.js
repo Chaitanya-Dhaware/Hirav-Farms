@@ -39,8 +39,11 @@ export function html() {
               <textarea id="contact-message" name="message" rows="5" placeholder="How can we help you?" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary" id="btn-submit-contact" style="align-self:flex-start;">
-              Send Message <i class="fa-solid fa-paper-plane btn-icon"></i>
+              Continue to WhatsApp <i class="fa-brands fa-whatsapp btn-icon"></i>
             </button>
+            <p id="contact-form-status" class="form-status" role="status" aria-live="polite">
+              Your message will open in WhatsApp for you to review and send.
+            </p>
           </form>
         </div>
 
@@ -52,7 +55,7 @@ export function html() {
             </div>
             <div class="contact-detail-item">
               <h4><i class="fa-solid fa-envelope" style="color:var(--primary-green); margin-right:8px;"></i> Email</h4>
-              <p><a href="mailto:hiravfarms@gmail.com">info@hiravfarms.com</a></p>
+              <p><a href="mailto:hiravfarms@gmail.com">hiravfarms@gmail.com</a></p>
             </div>
             <div class="contact-detail-item">
               <h4><i class="fa-solid fa-phone" style="color:var(--primary-green); margin-right:8px;"></i> Phone</h4>
@@ -93,24 +96,37 @@ export function init(gsap, ScrollTrigger) {
     scrollTrigger: { trigger: '#contact', start: 'top 80%' }
   });
 
-  // Contact form submit
+  // Open a pre-filled WhatsApp message. The visitor reviews and sends it
+  // in WhatsApp; this site does not claim to deliver the enquiry itself.
   const contactForm = document.getElementById('contact-form-element');
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('btn-submit-contact');
-      btn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin btn-icon"></i>';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.innerHTML = 'Success! <i class="fa-solid fa-check btn-icon"></i>';
-        btn.style.background = 'var(--fresh-green)';
-        contactForm.reset();
-        setTimeout(() => {
-          btn.innerHTML = 'Send Message <i class="fa-solid fa-paper-plane btn-icon"></i>';
-          btn.style.background = '';
-          btn.disabled = false;
-        }, 3000);
-      }, 1500);
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if (!contactForm.reportValidity()) return;
+
+      const formData = new FormData(contactForm);
+      const name = String(formData.get('name') || '').trim();
+      const email = String(formData.get('email') || '').trim();
+      const message = String(formData.get('message') || '').trim();
+
+      const whatsappMessage = [
+        'Hello Hirav Farms,',
+        '',
+        'I would like to make an enquiry.',
+        '',
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Message: ${message}`,
+      ].join('\\n');
+
+      const whatsappUrl = `https://wa.me/918055943000?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+      const status = document.getElementById('contact-form-status');
+      if (status) {
+        status.textContent = 'WhatsApp should open with your enquiry filled in. Please review the message and press Send in WhatsApp.';
+      }
     });
   }
 }
