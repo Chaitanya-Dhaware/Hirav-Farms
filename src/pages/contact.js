@@ -48,26 +48,26 @@ export function html() {
           <div class="contact-details">
             <div class="contact-detail-item">
               <h4><i class="fa-solid fa-location-dot" style="color:var(--primary-green); margin-right:8px;"></i> Farm Location</h4>
-              <p>Hirav Farms, Vill. Nauranga, Hissar-Delhi Highway, Haryana, India.</p>
+              <p>Hirav Farms, Georai, Beed, Maharashtra 431127.</p>
             </div>
             <div class="contact-detail-item">
               <h4><i class="fa-solid fa-envelope" style="color:var(--primary-green); margin-right:8px;"></i> Email</h4>
-              <p><a href="mailto:info@hiravfarms.com">info@hiravfarms.com</a></p>
+              <p><a href="mailto:hiravfarms@gmail.com">info@hiravfarms.com</a></p>
             </div>
             <div class="contact-detail-item">
               <h4><i class="fa-solid fa-phone" style="color:var(--primary-green); margin-right:8px;"></i> Phone</h4>
-              <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+              <p><a href="tel:+918055943000">+91 80559 43000</a></p>
             </div>
             <div class="contact-detail-item">
               <h4><i class="fa-brands fa-whatsapp" style="color:var(--primary-green); margin-right:8px;"></i> WhatsApp</h4>
-              <p><a href="https://wa.me/919876543210" target="_blank">Chat with us</a></p>
+              <p><a href="https://wa.me/918055943000" target="_blank">Chat with us</a></p>
             </div>
           </div>
 
           <div class="map-wrapper">
             <iframe 
               class="map-iframe"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111664.12351239856!2d75.6321235652312!3d29.15123456782345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391163dc1234567f%3A0xabcd12345678abcd!2sHisar%2C%20Haryana!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin" 
+              src="https://www.google.com/maps?q=Georai%2C+Beed%2C+Maharashtra+431127&output=embed" 
               allowfullscreen="" 
               loading="lazy" 
               referrerpolicy="no-referrer-when-downgrade"
