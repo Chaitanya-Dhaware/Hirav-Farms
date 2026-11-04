@@ -176,8 +176,8 @@ export function html() {
             </div>
           </div>
           <div style="margin-top: 3rem; display: flex; gap: 1.5rem;">
-            <a href="#" class="btn btn-white" id="btn-appstore"><i class="fa-brands fa-apple" style="margin-right:8px; font-size:1.2rem;"></i> App Store</a>
-            <a href="#" class="btn btn-secondary" style="border-color:var(--milk-white); color:var(--milk-white);" id="btn-playstore"><i class="fa-brands fa-google-play" style="margin-right:8px; font-size:1.2rem;"></i> Play Store</a>
+            <a href="https://wa.me/918055943000?text=Hello%20Hirav%20Farms%2C%20please%20share%20the%20Gaudai%20app%20download%20link." class="btn btn-white" id="btn-appstore" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-apple" style="margin-right:8px; font-size:1.2rem;"></i> App Store</a>
+            <a href="https://wa.me/918055943000?text=Hello%20Hirav%20Farms%2C%20please%20share%20the%20Gaudai%20app%20download%20link." class="btn btn-secondary" style="border-color:var(--milk-white); color:var(--milk-white);" id="btn-playstore" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-google-play" style="margin-right:8px; font-size:1.2rem;"></i> Play Store</a>
           </div>
         </div>
       </div>
@@ -217,6 +217,26 @@ export function init(gsap, ScrollTrigger) {
     opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out',
     scrollTrigger: { trigger: '#products', start: 'top 80%', once: true, toggleActions: 'play none none none' },
     onComplete: () => gsap.set('.product-card', { clearProps: 'all' }),
+  });
+
+  // Product enquiry buttons open WhatsApp with the selected product pre-filled.
+  document.querySelectorAll('.product-card').forEach((card) => {
+    const button = card.querySelector('.product-btn');
+    const productName = card.querySelector('h3')?.textContent?.trim();
+
+    if (!button || !productName) return;
+
+    button.addEventListener('click', () => {
+      const message = [
+        'Hello Hirav Farms,',
+        '',
+        `I am interested in ${productName}.`,
+        'Please share availability and ordering details.',
+      ].join('\n');
+
+      const whatsappUrl = `https://wa.me/918055943000?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    });
   });
 
   // Mobile App
