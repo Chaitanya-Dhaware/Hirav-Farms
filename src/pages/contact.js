@@ -118,7 +118,7 @@ export function init(gsap, ScrollTrigger) {
         `Name: ${name}`,
         `Email: ${email}`,
         `Message: ${message}`,
-      ].join('\\n');
+      ].join('\n');
 
       const whatsappUrl = `https://wa.me/918055943000?text=${encodeURIComponent(whatsappMessage)}`;
       window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
